@@ -7,33 +7,31 @@ using System.Threading.Tasks;
 
 namespace _2_task
 {
-    /*
-        Разделить ответственности классов
+/*
+    Разделить ответственности классов
 
-        Воспользуйтесь принципов SRP и выделите ответственность сохранения\загрузки в другой класс
+    Воспользуйтесь принципов SRP и выделите ответственность сохранения\загрузки в другой класс
 
-        https://gist.github.com/HolyMonkey/a2eda8d353918a43d25e44ad1f6be0aa
-    */
+    https://gist.github.com/HolyMonkey/a2eda8d353918a43d25e44ad1f6be0aa
+*/
 
     class Player
     {
         private float _health;
         private float _armor;
         private int _id;
+        private IPlayerStatsLoader _statsLoader;
 
-        public float Id => _id;
         public float Health => _health;
 
-        public event Action<Player> Instantiate;
-        public event Action<int,float> HealthChanged;
-
-        public Player(float health, float armor, int id)
+        public Player(float health, float armor, int id, IPlayerStatsLoader statsLoader)
         {
             _health = health;
             _armor = armor;
             _id = id;
+            _statsLoader = statsLoader;
 
-            Instantiate?.Invoke(this);
+            _health = statsLoader.GetStartHealth(_id, _health);
         }
 
         public void ApplyDamage(float damage)
@@ -44,25 +42,29 @@ namespace _2_task
 
             Console.WriteLine($"Вы получили урона - {healthDelta}");
 
-            HealthChanged.Invoke(_id,_health);
+            _statsLoader.SetNewHealth(_id, _health);
+
         }
     }
-    class PlayerFile
+    interface IPlayerStatsLoader
     {
-        public PlayerInfoFile(Player player)
+        float GetStartHealth(int id, float defaultHealth);
+        void SetNewHealth(int id, float health);
+    }
+
+    class PlayerStatsFileLoader : IPlayerStatsLoader
+    {
+        public float GetStartHealth(int id, float defaultHealth)
         {
-            player.HealthChanged += onHealthChanged;
-            player.Instantiate += onInstantiate;
-        }
-        private void onInstantiate(Player player)
-        {
-            if (File.Exists(($"user_{player.Id}.data")))
+            if(File.Exists(($"user_{id}.data")))
             {
-                var data = File.ReadAllText($"user_{player.Id}.data");
-                player.Health = float.Parse(data);
+                var data = File.ReadAllText($"user_{id}.data");
+                return float.Parse(data);
             }
+            return defaultHealth;
         }
-        private void onHealthChanged(int id,float health)
+
+        public void SetNewHealth(int id, float health)
         {
             File.WriteAllText($"user_{id}.data", health.ToString());
         }
