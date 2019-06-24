@@ -46,6 +46,7 @@ namespace _1_task
         {
             return _users;
             // так нарушается принцип инкапсуляции же, нет? Будет доступ ко всем пользователям, делай что хочешь.
+            // поэтому надо возвращать копию списка? как показано ниже
             // List<User> userListCopy = new List<User>();
             // _users.ForEach(item => userListCopy.Add(item)); // нужно еще делать клон объекта ( например, за счет нитерфейса ICloneable для класса юзера)
             // return userListCopy;

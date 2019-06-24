@@ -44,8 +44,6 @@ namespace _3_task
         {
             return Name;
         }
-
-
     }
     class Program
     {

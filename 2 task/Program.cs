@@ -20,18 +20,18 @@ namespace _2_task
         private float _health;
         private float _armor;
         private int _id;
-        private IPlayerStatsLoader _statsLoader;
+        private IPlayerHealthLoader _healthLoader;
 
         public float Health => _health;
 
-        public Player(float health, float armor, int id, IPlayerStatsLoader statsLoader)
+        public Player(float health, float armor, int id, IPlayerHealthLoader healthLoader)
         {
             _health = health;
             _armor = armor;
             _id = id;
-            _statsLoader = statsLoader;
+            _healthLoader = healthLoader;
 
-            _health = statsLoader.GetStartHealth(_id, _health);
+            _health = _healthLoader.GetStartHealth(_id, _health);
         }
 
         public void ApplyDamage(float damage)
@@ -42,17 +42,17 @@ namespace _2_task
 
             Console.WriteLine($"Вы получили урона - {healthDelta}");
 
-            _statsLoader.SetNewHealth(_id, _health);
+            _healthLoader.SetNewHealth(_id, _health);
 
         }
     }
-    interface IPlayerStatsLoader
+    interface IPlayerHealthLoader
     {
         float GetStartHealth(int id, float defaultHealth);
         void SetNewHealth(int id, float health);
     }
 
-    class PlayerStatsFileLoader : IPlayerStatsLoader
+    class PlayerHealthFileLoader : IPlayerHealthLoader
     {
         public float GetStartHealth(int id, float defaultHealth)
         {
