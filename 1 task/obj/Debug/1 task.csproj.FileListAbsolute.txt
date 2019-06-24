@@ -1,0 +1,7 @@
+C:\Users\Admin\source\repos\OOP_Intensive\1 task\bin\Debug\1 task.exe.config
+C:\Users\Admin\source\repos\OOP_Intensive\1 task\bin\Debug\1 task.exe
+C:\Users\Admin\source\repos\OOP_Intensive\1 task\bin\Debug\1 task.pdb
+C:\Users\Admin\source\repos\OOP_Intensive\1 task\obj\Debug\1 task.csprojAssemblyReference.cache
+C:\Users\Admin\source\repos\OOP_Intensive\1 task\obj\Debug\1 task.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\OOP_Intensive\1 task\obj\Debug\1 task.exe
+C:\Users\Admin\source\repos\OOP_Intensive\1 task\obj\Debug\1 task.pdb
