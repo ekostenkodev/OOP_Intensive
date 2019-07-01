@@ -14,24 +14,54 @@ namespace _2_task
 
     https://gist.github.com/HolyMonkey/a2eda8d353918a43d25e44ad1f6be0aa
 */
+    interface IPlayerBuilder
+    {
+        void OnHealthChanged(Player player);
+        float? GetStartHealth(int id);
+    }
+    class PlayerDataFileBuilder : IPlayerBuilder
+    {
+        public Player CreatePlayer(float health, float armor, int id)
+        {
+            health = GetStartHealth(id) ?? health;
+            Player player = new Player(health,armor,id);
+            player.HealthChanged += OnHealthChanged;
+
+            return player;
+        }
+
+        public void OnHealthChanged(Player player)
+        {
+            File.WriteAllText($"user_{player.Id}.data", player.Health.ToString());
+        }
+
+        public float? GetStartHealth(int id)
+        {
+            if (File.Exists(($"user_{id}.data")))
+            {
+                var data = File.ReadAllText($"user_{id}.data");
+                return float.Parse(data);
+            }
+            return null;
+        }
+    }
 
     class Player
     {
         private float _health;
         private float _armor;
         private int _id;
-        private IPlayerHealthLoader _healthLoader;
 
         public float Health => _health;
+        public float Id => _id;
 
-        public Player(float health, float armor, int id, IPlayerHealthLoader healthLoader)
+        public event Action<Player> HealthChanged;
+
+        public Player(float health, float armor, int id)
         {
             _health = health;
             _armor = armor;
             _id = id;
-            _healthLoader = healthLoader;
-
-            _health = _healthLoader.GetStartHealth(_id, _health);
         }
 
         public void ApplyDamage(float damage)
@@ -42,33 +72,10 @@ namespace _2_task
 
             Console.WriteLine($"Вы получили урона - {healthDelta}");
 
-            _healthLoader.SetNewHealth(_id, _health);
-
+            HealthChanged?.Invoke(this);
         }
     }
-    interface IPlayerHealthLoader
-    {
-        float GetStartHealth(int id, float defaultHealth);
-        void SetNewHealth(int id, float health);
-    }
 
-    class PlayerHealthFileLoader : IPlayerHealthLoader
-    {
-        public float GetStartHealth(int id, float defaultHealth)
-        {
-            if(File.Exists(($"user_{id}.data")))
-            {
-                var data = File.ReadAllText($"user_{id}.data");
-                return float.Parse(data);
-            }
-            return defaultHealth;
-        }
-
-        public void SetNewHealth(int id, float health)
-        {
-            File.WriteAllText($"user_{id}.data", health.ToString());
-        }
-    }
 
     class Program
     {

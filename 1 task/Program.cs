@@ -42,7 +42,7 @@ namespace _1_task
 
         public User GetUser(string name) => _users.Find(e => e.Name.Equals(name));
         public User GetUser(int id) => _users.Find(e => e.Id == id);
-        public List<User> GetUsers()
+        public List<User> GetAllUsers()
         {
             return _users;
             // так нарушается принцип инкапсуляции же, нет? Будет доступ ко всем пользователям, делай что хочешь.
@@ -51,7 +51,7 @@ namespace _1_task
             // _users.ForEach(item => userListCopy.Add(item)); // нужно еще делать клон объекта ( например, за счет нитерфейса ICloneable для класса юзера)
             // return userListCopy;
         }
-        public List<User> GetUsers(decimal N, bool above)
+        public List<User> GetUsersByBorder(decimal borderSalary, bool above)
         {
             // удобный, но излишний функционал
             //public List<User> GetUsers(decimal N, Func<decimal, decimal, bool> compare)
@@ -60,11 +60,11 @@ namespace _1_task
             //}
 
             if (above)
-                return _users.Where(item => item.Salary > N).ToList();
+                return _users.Where(item => item.Salary > borderSalary).ToList();
             else
-                return _users.Where(item => item.Salary < N).ToList();
+                return _users.Where(item => item.Salary < borderSalary).ToList();
         }
-        public List<User> GetUsers(decimal N1, decimal N2) => _users.Where(item => item.Salary > N1 && item.Salary < N2).ToList();
+        public List<User> GetUsersByBorder(decimal minSalary, decimal maxSalary) => _users.Where(item => item.Salary > minSalary && item.Salary < maxSalary).ToList();
     }
     class Naming
     {
@@ -81,21 +81,21 @@ namespace _1_task
 
             Console.WriteLine($"2) Зарплата Ромы : {users.GetUser(2).Salary}");
 
-            var selectedUsers = users.GetUsers();
+            var selectedUsers = users.GetAllUsers();
             var usersString = String.Join(", ", selectedUsers.Select(item => item.Name).ToArray());
             Console.WriteLine($"3) Все пользователи : {usersString}");
 
             int N = 10;
-            selectedUsers = users.GetUsers(N, true);
+            selectedUsers = users.GetUsersByBorder(N, true);
             usersString = String.Join(", ", selectedUsers.Select(item => item.Name).ToArray());
             Console.WriteLine($"4) Все пользователи, у кого зарплата больше {N} : {usersString}");
 
-            selectedUsers = users.GetUsers(N, false);
+            selectedUsers = users.GetUsersByBorder(N, false);
             usersString = String.Join(", ", selectedUsers.Select(item => item.Name).ToArray());
             Console.WriteLine($"5) Все пользователи, у кого зарплата меньше {N} : {usersString}");
 
             int N1 = 5, N2 = 25;
-            selectedUsers = users.GetUsers(N1,N2);
+            selectedUsers = users.GetUsersByBorder(N1,N2);
             usersString = String.Join(", ", selectedUsers.Select(item => item.Name).ToArray());
             Console.WriteLine($"6) Все пользователи, у кого зарплата от {N1} до {N2}: {usersString}");
 

@@ -10,7 +10,7 @@ namespace _3_task
     https://pastebin.com/cNQggMPK
 */
 
-    class Goal
+    class GoalList
     {
         public string Name { get; private set; }
         private string[] _goals;
@@ -23,14 +23,14 @@ namespace _3_task
             else
                 return "Empty";
         }
-        public void AddItem(string newItem)
+        public void AddItem(string item)
         {
             string[] newGoalArray = new string[_goals.Length + 1];
             for (int j = 0; j < _goals.Length; j++)
             {
                 newGoalArray[j] = _goals[j];
             }
-            newGoalArray[newGoalArray.Length - 1] = newItem;
+            newGoalArray[newGoalArray.Length - 1] = item;
             _goals = newGoalArray;
         }
 
@@ -67,9 +67,9 @@ namespace _3_task
                 Console.WriteLine("Куда вы хотите добавить цель?");
                 string userListName = Console.ReadLine(); //то что введёт пользователь переведённое в нижний регистр
                 Console.WriteLine("Что это за цель?");
-                string userGoal = Console.ReadLine();
+                string userGoal = Console.ReadLine().ToLower();
 
-                goals.FirstOrDefault(g => g.Name.ToLower().Equals(userListName.ToLower()))?
+                goals.FirstOrDefault(g => g.Name.ToLower().Equals(userListName))?
                     .AddItem(userGoal);
             }
             
