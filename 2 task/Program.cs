@@ -16,6 +16,7 @@ namespace _2_task
 */
     interface IPlayerBuilder
     {
+        Player CreatePlayer(float health, float armor, int id);
         void OnHealthChanged(Player player);
         float? GetStartHealth(int id);
     }

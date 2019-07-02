@@ -40,31 +40,12 @@ namespace _1_task
             _users = users;
         }
 
-        public User GetUser(string name) => _users.Find(e => e.Name.Equals(name));
-        public User GetUser(int id) => _users.Find(e => e.Id == id);
-        public List<User> GetAllUsers()
-        {
-            return _users;
-            // так нарушается принцип инкапсуляции же, нет? Будет доступ ко всем пользователям, делай что хочешь.
-            // поэтому надо возвращать копию списка? как показано ниже
-            // List<User> userListCopy = new List<User>();
-            // _users.ForEach(item => userListCopy.Add(item)); // нужно еще делать клон объекта ( например, за счет нитерфейса ICloneable для класса юзера)
-            // return userListCopy;
-        }
-        public List<User> GetUsersByBorder(decimal borderSalary, bool above)
-        {
-            // удобный, но излишний функционал
-            //public List<User> GetUsers(decimal N, Func<decimal, decimal, bool> compare)
-            //{
-            //    return _users.Where(item => compare(item.Salary,N)).ToList();
-            //}
-
-            if (above)
-                return _users.Where(item => item.Salary > borderSalary).ToList();
-            else
-                return _users.Where(item => item.Salary < borderSalary).ToList();
-        }
-        public List<User> GetUsersByBorder(decimal minSalary, decimal maxSalary) => _users.Where(item => item.Salary > minSalary && item.Salary < maxSalary).ToList();
+        public User GetUser(string name) => _users.FirstOrDefault(e => e.Name.Equals(name));
+        public User GetUser(int id) => _users.FirstOrDefault(e => e.Id == id);
+        public IEnumerable<User> GetAll() => _users;
+        public IEnumerable<User> GetUserBySalaryGreaterThen(decimal salary) => _users.Where(item => item.Salary > salary).ToList();
+        public IEnumerable<User> GetUserBySalaryLowerThen(decimal salary) => _users.Where(item => item.Salary < salary).ToList();
+        public IEnumerable<User> GetUsersBySalaryInterval(decimal minSalary, decimal maxSalary) => _users.Where(item => item.Salary > minSalary && item.Salary < maxSalary).ToList();
     }
     class Naming
     {
@@ -86,16 +67,16 @@ namespace _1_task
             Console.WriteLine($"3) Все пользователи : {usersString}");
 
             int N = 10;
-            selectedUsers = users.GetUsersByBorder(N, true);
+            selectedUsers = users.GetUserBySalaryGreaterThen(N);
             usersString = String.Join(", ", selectedUsers.Select(item => item.Name).ToArray());
             Console.WriteLine($"4) Все пользователи, у кого зарплата больше {N} : {usersString}");
 
-            selectedUsers = users.GetUsersByBorder(N, false);
+            selectedUsers = users.GetUserBySalaryLowerThen(N);
             usersString = String.Join(", ", selectedUsers.Select(item => item.Name).ToArray());
             Console.WriteLine($"5) Все пользователи, у кого зарплата меньше {N} : {usersString}");
 
             int N1 = 5, N2 = 25;
-            selectedUsers = users.GetUsersByBorder(N1,N2);
+            selectedUsers = users.GetUsersBySalaryInterval(N1,N2);
             usersString = String.Join(", ", selectedUsers.Select(item => item.Name).ToArray());
             Console.WriteLine($"6) Все пользователи, у кого зарплата от {N1} до {N2}: {usersString}");
 
