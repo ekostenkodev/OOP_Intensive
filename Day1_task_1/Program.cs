@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Day1_1_task
+namespace Day1_task_1
 {
-/*
-    Именование
-    Опишите класс который хранит пользователей системы. Через объект этого класса мы можем:
-    1)Получить пользователя по имени
-    2)Получить пользователя по Id
-    3)Получить всех пользователей
-    4)Получить пользователей у которых зарплата больше N
-    5)Получить пользователей у которых зарплата меньше N
-    6)Получить пользователей у которых запралта от N1 до N2
-*/
+    /*
+        Именование
+        Опишите класс который хранит пользователей системы. Через объект этого класса мы можем:
+        1)Получить пользователя по имени
+        2)Получить пользователя по Id
+        3)Получить всех пользователей
+        4)Получить пользователей у которых зарплата больше N
+        5)Получить пользователей у которых зарплата меньше N
+        6)Получить пользователей у которых запралта от N1 до N2
+    */
     class User
     {
         public int Id { get; private set; }
@@ -29,7 +29,7 @@ namespace Day1_1_task
             Salary = salary;
         }
 
-        
+
     }
     class Users
     {
@@ -76,7 +76,7 @@ namespace Day1_1_task
             Console.WriteLine($"5) Все пользователи, у кого зарплата меньше {N} : {usersString}");
 
             int N1 = 5, N2 = 25;
-            selectedUsers = users.GetUsersBySalaryInterval(N1,N2);
+            selectedUsers = users.GetUsersBySalaryInterval(N1, N2);
             usersString = String.Join(", ", selectedUsers.Select(item => item.Name).ToArray());
             Console.WriteLine($"6) Все пользователи, у кого зарплата от {N1} до {N2}: {usersString}");
 
