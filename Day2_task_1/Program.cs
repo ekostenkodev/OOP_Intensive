@@ -28,12 +28,12 @@ namespace Day2_task_1
         }
     }
  
-    interface ILogWritter
+    interface ILogWriter
     {
         void WriteError(string message);
     }
 
-    class ConsoleLogWritter : ILogWritter
+    class ConsoleLogWritter : ILogWriter
     {
         public void WriteError(string message)
         {
@@ -41,7 +41,7 @@ namespace Day2_task_1
         }
     }
 
-    class FileLogWritter : ILogWritter
+    class FileLogWritter : ILogWriter
     {
         public void WriteError(string message)
         {
@@ -49,20 +49,20 @@ namespace Day2_task_1
         }
     }
 
-    class SecureConsoleLogWritter : ILogWritter
+    class SecureConsoleLogWritter : ILogWriter
     {
-        ILogWritter _logWritter;
+        ILogWriter _logWriter;
 
-        public SecureConsoleLogWritter(ILogWritter logWritter)
+        public SecureConsoleLogWritter(ILogWriter logWriter)
         {
-            _logWritter = logWritter;
+            _logWriter = logWriter;
         }
 
         public void WriteError(string message)
         {
             if (DateTime.Now.DayOfWeek == DayOfWeek.Friday)
             {
-                _logWritter.WriteError(message);
+                _logWriter.WriteError(message);
             }
         }
     }
