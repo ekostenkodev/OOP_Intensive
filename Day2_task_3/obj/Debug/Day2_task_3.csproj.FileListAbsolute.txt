@@ -1,6 +1,0 @@
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\Day2_task_3\bin\Debug\Day2_task_3.exe.config
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\Day2_task_3\bin\Debug\Day2_task_3.exe
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\Day2_task_3\bin\Debug\Day2_task_3.pdb
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\Day2_task_3\obj\Debug\Day2_task_3.csproj.CoreCompileInputs.cache
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\Day2_task_3\obj\Debug\Day2_task_3.exe
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\Day2_task_3\obj\Debug\Day2_task_3.pdb

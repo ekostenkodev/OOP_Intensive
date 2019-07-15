@@ -1,7 +1,0 @@
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\2 task\bin\Debug\2 task.exe.config
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\2 task\bin\Debug\2 task.exe
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\2 task\bin\Debug\2 task.pdb
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\2 task\obj\Debug\2 task.csprojAssemblyReference.cache
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\2 task\obj\Debug\2 task.csproj.CoreCompileInputs.cache
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\2 task\obj\Debug\2 task.exe
-C:\Users\Admin\Documents\GitHub\OOP_Intensive\2 task\obj\Debug\2 task.pdb
