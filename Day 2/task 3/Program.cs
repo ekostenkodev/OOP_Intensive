@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace task_3
 {
@@ -25,6 +27,14 @@ namespace task_3
         - Отобразить фигуры с помощью Консоли
     */
 
+    class Space
+    {
+        public List<Shape> Shapes = new List<Shape>();
+
+        public float AreaSum => Shapes.Sum(shape => shape.Area);
+        public void ShowShapes(IShapeVisitor shapeVisitor) => Shapes.ForEach(shape => shape.Accept(shapeVisitor));
+    }
+
     #region Shapes
 
     abstract class Shape
@@ -32,6 +42,7 @@ namespace task_3
         public int X { get; private set; }
         public int Y { get; private set; }
 
+        public abstract float Area { get; }
 
         public Shape(int x, int y)
         {
@@ -39,81 +50,142 @@ namespace task_3
             Y = y;
         }
 
-        public abstract float Area { get; }
+        public abstract void Accept(IShapeVisitor visitor);
     }
 
     class Square : Shape
     {
-        int _size;
+        public int Size { get; private set; }
+
+        public override float Area => Size * Size;
 
         public Square(int x,int y,int size) : base(x,y)
         {
-            _size = size;
+            Size = size;
         }
 
-        public override float Area => _size * _size;
+
+        public override void Accept(IShapeVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 
     class Rectangle : Shape
     {
-        int _width, _height;
+        public int Width{ get; private set; }
+        public int Height { get; private set; }
+
+        public override float Area => Height * Width;
 
         public Rectangle(int x, int y, int width, int height) : base(x,y)
         {
-            _width = width;
-            _height = height;
+            Width = width;
+            Height = height;
         }
 
-        public override float Area => _width * _height;
+        public override void Accept(IShapeVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 
     class Triangle : Shape
     {
-        int _height, _bottom;
+        public int Height { get; private set; }
+        public int Bottom { get; private set; }
+
+        public override float Area => 0.5f * Height * Bottom;
+
+
+
 
         public Triangle(int x, int y, int height, int bottom) : base(x, y)
         {
-            _height = height;
-            _bottom = bottom;
+            Height = height;
+            Bottom = bottom;
         }
 
-        public override float Area => 0.5f * _height * _bottom;
+        public override void Accept(IShapeVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 
     class Circle : Shape
     {
-        int _radius;
+        public int Radius { get; private set; }
+
+        public override float Area => (float)Math.PI * Radius * Radius;
 
         public Circle(int x, int y, int radius) : base(x, y)
         {
-            _radius = radius;
+            Radius = radius;
         }
 
-        public override float Area => (float)Math.PI * _radius * _radius;
+        public override void Accept(IShapeVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 
     #endregion
 
-    #region ShapeWriter
-    interface IShapeWriter
+    #region ShapeVisitor
+    interface IShapeVisitor
     {
-        void Write(Shape shape);
+        void Visit(Circle circle);
+        void Visit(Square square);
+        void Visit(Triangle triangle);
+        void Visit(Rectangle rectangle);
     }
-    class ShapeConsoleWriter : IShapeWriter
+
+    class ShapeConsoleWriter : IShapeVisitor
     {
-        public void Write(Shape shape)
+        public void Visit(Circle circle)
         {
-            Console.WriteLine($"Координаты фигуры : ({shape.X}, {shape.Y})");
-            Console.WriteLine($"Площадь фигуры : {shape.Area}");
+            Console.WriteLine($"Круг : ({circle.X}, {circle.Y}), радиус = {circle.Radius}");
+        }
+
+        public void Visit(Square square)
+        {
+            Console.WriteLine($"Квадрат : ({square.X}, {square.Y}), сторона = {square.Size}");
+        }
+
+        public void Visit(Triangle triangle)
+        {
+            Console.WriteLine($"Треугольник : ({triangle.X}, {triangle.Y}), основание = {triangle.Bottom}, высота = {triangle.Height}");
+        }
+
+        public void Visit(Rectangle rectangle)
+        {
+            Console.WriteLine($"Прямоугольник : ({rectangle.X}, {rectangle.Y}), ширина = {rectangle.Width}, высота = {rectangle.Height}");
         }
     }
-    class ShapeWinApiWriter : IShapeWriter
+    class ShapeWinApiWriter : IShapeVisitor
     {
-        public void Write(Shape shape)
+        public void Visit(Circle circle)
         {
-            string shapeInfo = $"Координаты фигуры : ({shape.X}, {shape.Y})" + "/n"
-                                + $"Площадь фигуры : {shape.Area}";
-            File.WriteAllText("shape.txt", shapeInfo);
+            string shapeInfo = $"Круг : ({circle.X}, {circle.Y}), радиус = {circle.Radius}";
+            File.WriteAllText("circle.txt", shapeInfo);
+        }
+
+        public void Visit(Square square)
+        {
+            string shapeInfo = $"Квадрат : ({square.X}, {square.Y}), сторона = {square.Size}";
+            File.WriteAllText("square.txt", shapeInfo);
+        }
+
+        public void Visit(Triangle triangle)
+        {
+            string shapeInfo = $"Треугольник : ({triangle.X}, {triangle.Y}), основание = {triangle.Bottom}, высота = {triangle.Height}";
+            File.WriteAllText("triangle.txt", shapeInfo);
+        }
+
+        public void Visit(Rectangle rectangle)
+        {
+            string shapeInfo = $"Прямоугольник : ({rectangle.X}, {rectangle.Y}), ширина = {rectangle.Width}, высота = {rectangle.Height}";
+            File.WriteAllText("rectangle.txt", shapeInfo);
         }
     }
 
@@ -123,11 +195,16 @@ namespace task_3
     {
         static void Main(string[] args)
         {
-            Shape shape = new Circle(1, 2, 5);
+            Space space = new Space();
 
-            IShapeWriter shapeWriter = new ShapeConsoleWriter();
+            space.Shapes.Add(new Circle(1, 2, 5));
+            space.Shapes.Add(new Square(5, 7, 3));
+            space.Shapes.Add(new Rectangle(0, 0, 5, 1));
+            space.Shapes.Add(new Triangle(10, 10, 10, 10));
 
-            shapeWriter.Write(shape);
+            space.ShowShapes(new ShapeConsoleWriter());
+
+            Console.WriteLine($"Сумма всех площадей : {space.AreaSum}");
         }
     }
 }
