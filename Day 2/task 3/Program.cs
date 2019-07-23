@@ -31,7 +31,7 @@ namespace task_3
     {
         public List<Shape> Shapes = new List<Shape>();
 
-        public float AreaSum(IShapeVisitorCalculation shapeVisitor)
+        public float AreaSum(IShapeCalculationVisitor shapeVisitor)
         {
             foreach (var shape in Shapes)
             {
@@ -134,12 +134,12 @@ namespace task_3
         void Visit(Triangle triangle);
         void Visit(Rectangle rectangle);
     }
-    interface IShapeVisitorCalculation : IShapeVisitor
+    interface IShapeCalculationVisitor : IShapeVisitor
     {
         float Result { get; }
     }
 
-    class ShapeArea : IShapeVisitorCalculation
+    class ShapeArea : IShapeCalculationVisitor
     {
         public float Result { get; private set; }
 
