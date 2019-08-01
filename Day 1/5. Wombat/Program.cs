@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace task_5
+namespace Wombat
 {
     /*
         Вомбат и человек

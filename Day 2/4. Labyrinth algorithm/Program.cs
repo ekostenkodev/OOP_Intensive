@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace task_4
+namespace Labyrinth
 {
     /*
     Генерация лабиринта

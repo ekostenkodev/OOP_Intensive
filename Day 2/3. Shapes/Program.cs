@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace task_3
+namespace Shapes
 {
     /*
         Фигуры. Проектирование

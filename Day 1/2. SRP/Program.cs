@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace task_2
+namespace SRP
 {
     /*
         Разделить ответственности классов

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace task_2
+namespace OCP
 {
 /*
     OCP. Методы платежей

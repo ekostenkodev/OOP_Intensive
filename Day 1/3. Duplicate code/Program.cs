@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace task_3
+namespace DuplicateCode
 {
     /*
         Избавьтесь от дублирующего кода

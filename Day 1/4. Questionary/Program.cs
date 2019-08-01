@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace task_4
+namespace Questionary
 {
     /*  
         Анкетка

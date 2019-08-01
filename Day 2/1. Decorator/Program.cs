@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace task_1
+namespace Decorator
 {
     /*
         Декоратор. Защищённые логеры

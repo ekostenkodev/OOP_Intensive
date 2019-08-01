@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace task_1
+namespace Naming
 {
     /*
         Именование
@@ -50,13 +50,13 @@ namespace task_1
         static void Main(string[] args)
         {
             List<User> userList = new List<User>()
-            {   new User(1, "Lepeha", 10),
+            {   new User(1, "Egor", 10),
                 new User(2, "Roma", 20),
                 new User(3, "Boris", 5),
             };
             Users users = new Users(userList);
 
-            Console.WriteLine($"1) Id Лехи : {users.GetUser("Lepeha").Id}");
+            Console.WriteLine($"1) Id Егора : {users.GetUser("Egor").Id}");
 
             Console.WriteLine($"2) Зарплата Ромы : {users.GetUser(2).Salary}");
 

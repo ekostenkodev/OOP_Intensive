@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task 1", "task 1\task 1.csproj", "{C3373D62-690A-4C11-8E8B-9E3FBE427984}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. Naming", "1. Naming\1. Naming.csproj", "{C3373D62-690A-4C11-8E8B-9E3FBE427984}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task 2", "task 2\task 2.csproj", "{7074E5AF-1A7C-483E-96F2-40892429E28D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. SRP", "2. SRP\2. SRP.csproj", "{7074E5AF-1A7C-483E-96F2-40892429E28D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task 3", "task 3\task 3.csproj", "{F791C55B-C394-421A-B25F-BF769477E82E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. Duplicate code", "3. Duplicate code\3. Duplicate code.csproj", "{F791C55B-C394-421A-B25F-BF769477E82E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task 4", "task 4\task 4.csproj", "{B3A2AB60-6F38-4227-8AB0-96B82289790D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4. Questionary", "4. Questionary\4. Questionary.csproj", "{B3A2AB60-6F38-4227-8AB0-96B82289790D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task 5", "task 5\task 5.csproj", "{49688894-1368-4291-B561-A286FE4EB297}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5. Wombat", "5. Wombat\5. Wombat.csproj", "{49688894-1368-4291-B561-A286FE4EB297}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
